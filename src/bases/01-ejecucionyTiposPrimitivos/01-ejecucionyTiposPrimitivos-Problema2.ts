@@ -44,4 +44,8 @@ const utilizables = (equipos: readonly Equipo[]): Equipo[] =>
   equipos.filter((e) => e.estado === "operativo" || e.estado === "sin_teclado");
 
 for (const equipo of inventario) console.log(mensaje(equipo));
-console.log(`Utilizables: ${utilizables(inventario).map((e) => e.id).join(", ")}`);
+console.log(
+  `Utilizables: ${utilizables(inventario)
+    .map((e) => e.id)
+    .join(", ")}`,
+);
