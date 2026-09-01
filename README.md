@@ -490,6 +490,22 @@ Orden sugerido: 1 → 2 → 3.
 
 *Lo que enseña*: la frontera entre el mundo tipado y el mundo real. Es donde el tipado se gana el sueldo.
 
+### Bloque 02 — [enunciados completos](src/bases/02-OperadoresyCoerción/02-OperadoresyCoerción.md#ejercicios-del-bloque)
+
+Orden sugerido: 1 → 2 → 3.
+
+**1. Configuración del kiosco de la biblioteca** — Aplicar valores por defecto sobre una config donde `0` y `""` son datos legítimos, y escribir la misma función con `||` para ver el bug lado a lado.
+
+*Lo que enseña*: `??` contra `||`, y que el default equivocado se come datos reales sin decir nada.
+
+**2. Inscripciones que llegan de un formulario HTML** — Todo llega como `string`. Validar y convertir en la frontera, sabiendo que `Number("")` es `0` y que `Boolean("false")` es `true`.
+
+*Lo que enseña*: conversión explícita, `Number.isNaN`, y por qué la truthiness no sirve para validar.
+
+**3. Directorio de tutores incompleto** — Cadenas de `?.` sobre datos a medio llenar, `?.()` para un callback opcional y `??=` para inicializar acumuladores.
+
+*Lo que enseña*: encadenamiento opcional sin `!` ni `as`, y cuándo un `?.` sobra porque miente sobre el modelo.
+
 ---
 
 ## Criterio de salida
