@@ -1,6 +1,6 @@
 # TypeScript — Bases
 
-![TypeScript](https://img.shields.io/badge/TypeScript-5.x-3178C6?logo=typescript&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-6.x-3178C6?logo=typescript&logoColor=white)
 ![Node](https://img.shields.io/badge/Node-20%2B-339933?logo=node.js&logoColor=white)
 ![strict](https://img.shields.io/badge/strict-true-17805A)
 
@@ -13,7 +13,7 @@ Este repositorio no es un curso de lógica de programación: es el **modelo ment
 ## Requisitos
 
 - Node.js 20 o superior
-- TypeScript 5.x
+- TypeScript 6.x (incluido como dependencia de desarrollo)
 
 ## Instalación
 
@@ -25,56 +25,68 @@ npm install
 
 ## Ejecución
 
+El proyecto corre sobre **Vite**. Los bloques no se compilan a `dist/` ni se lanzan con `node`: se importan desde `src/main.tsx` y su salida aparece en la **consola del navegador**.
+
 ```bash
+# Levantar el entorno (recarga en caliente)
+npm run dev
+
 # Verificar tipos de todo el proyecto sin generar archivos
-npx tsc --noEmit
+npx tsc -b
 
-# Compilar a JavaScript
-npx tsc
+# Build de producción (typecheck + bundle)
+npm run build
+```
 
-# Ejecutar un tema concreto
-node dist/bases/ejecucionyTiposPrimitivos.js
+Para ejecutar un bloque concreto, impórtalo en [`src/main.tsx`](src/main.tsx) y abre la consola del navegador:
+
+```ts
+import './bases/01-ejecucionyTiposPrimitivos/01-ejecucionyTiposPrimitivos-Problema1.ts';
 ```
 
 > **`strict: true` es obligatorio en este repositorio.** Sin esa bandera, la mitad de los ejercicios compilan cuando no deberían y se pierde el punto de cada bloque.
 
-`tsconfig.json` mínimo:
+La configuración está repartida: `tsconfig.json` solo referencia a los otros dos, y las banderas que importan viven en `tsconfig.app.json`:
 
 ```json
 {
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
+    "target": "es2023",
+    "module": "esnext",
     "moduleResolution": "bundler",
-    "outDir": "dist",
-    "rootDir": "src",
+    "noEmit": true,
     "strict": true,
     "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "noFallthroughCasesInSwitch": true
   },
   "include": ["src"]
 }
 ```
 
+`noEmit: true` es intencional: del bundle se encarga Vite, y `tsc` se usa solo como verificador de tipos.
+
 ---
 
 ## Estructura
 
+Una **carpeta por bloque**, con la teoría en un `.md` y las soluciones al lado:
+
 ```
 bases/
 ├── src/
-│   └── bases/
-│       ├── 01-ejecucionyTiposPrimitivos.ts
-│       ├── 02-operadoresyCoercion.ts
-│       ├── 03-controlFlujoyColecciones.ts
-│       ├── 04-funciones.ts
-│       ├── 05-sistemaDeTipos.ts
-│       ├── 06-inmutabilidadyTransformacion.ts
-│       ├── 07-scopeClosuresyThis.ts
-│       ├── 08-asincronia.ts
-│       ├── 09-modulosyConfiguracion.ts
-│       └── 10-erroresyDominio.ts
-├── tsconfig.json
+│   ├── bases/
+│   │   ├── 01-ejecucionyTiposPrimitivos/
+│   │   │   ├── 01-ejecucionyTiposPrimitivos.md            ← teoría + enunciados
+│   │   │   └── 01-ejecucionyTiposPrimitivos-Problema1.ts  ← solución
+│   │   ├── 02-OperadoresyCoerción/
+│   │   └── …                                              ← 03 a 10, pendientes
+│   ├── main.tsx        ← aquí se importa el bloque a ejecutar
+│   └── App.tsx
+├── tsconfig.json       ← solo referencias
+├── tsconfig.app.json   ← aquí viven strict y las demás banderas
+├── vite.config.ts
 ├── package.json
 └── README.md
 ```
@@ -452,23 +464,29 @@ catch (e: unknown) {
 
 ## Ejercicios
 
-Los ejercicios están en `src/ejercicios/`. Reglas para todos: **sin `any`, sin `as`, sin `!`**, y con `strict: true`.
+Cada bloque trae sus propios ejercicios: **el enunciado vive en el `.md` del bloque** y la solución se escribe al lado, como `NN-nombre-ProblemaN.ts` dentro de la misma carpeta.
 
-### 1. Boletas con calificaciones incompletas
+```
+src/bases/01-ejecucionyTiposPrimitivos/
+├── 01-ejecucionyTiposPrimitivos.md            ← teoría + enunciados
+└── 01-ejecucionyTiposPrimitivos-Problema1.ts  ← tu solución
+```
 
-Promediar proyectos donde un `null` significa "no entregado" — que no es lo mismo que cero. Salida esperada: `"Ana Torres: 9.0"` o `"Sofía Ruiz: sin evaluar"`.
+Reglas para todos: **sin `any`, sin `as`, sin `!`**, y con `strict: true`.
+
+### Bloque 01 — [enunciados completos](src/bases/01-ejecucionyTiposPrimitivos/01-ejecucionyTiposPrimitivos.md#ejercicios-del-bloque)
+
+Orden sugerido: 1 → 2 → 3.
+
+**1. Boletas con calificaciones incompletas** — Promediar proyectos donde un `null` significa "no entregado", que no es lo mismo que cero. Salida esperada: `"Ana Torres: 9.0"` o `"Sofía Ruiz: sin evaluar"`.
 
 *Lo que enseña*: opcionales, `number | null`, y que TypeScript hace **narrowing sobre variables, no sobre llamadas a funciones**.
 
-### 2. Inventario del aula de cómputo
-
-Modelar equipos cuyos campos dependen de su estado (`desde` solo si está en reparación, `motivo` solo si está dado de baja) con una unión discriminada y un `switch` sin `default`.
+**2. Inventario del aula de cómputo** — Modelar equipos cuyos campos dependen de su estado (`desde` solo si está en reparación, `motivo` solo si está dado de baja) con una unión discriminada y un `switch` sin `default`.
 
 *Lo que enseña*: uniones de literales, narrowing por discriminante y verificación de exhaustividad.
 
-### 3. Lista de asistencia en JSON sucio
-
-`JSON.parse` devuelve `any`. Asignarlo a `unknown`, escribir una type predicate que valide de verdad, y separar registros válidos de rechazados.
+**3. Lista de asistencia en JSON sucio** — `JSON.parse` devuelve `any`. Asignarlo a `unknown`, escribir una type predicate que valide de verdad, y separar registros válidos de rechazados.
 
 *Lo que enseña*: la frontera entre el mundo tipado y el mundo real. Es donde el tipado se gana el sueldo.
 
@@ -488,7 +506,7 @@ Y explicar por qué cada parte de la firma está donde está. A partir de ahí, 
 
 ## Convenciones del repositorio
 
-- Un archivo por bloque, numerado, en `src/bases/`.
+- Una carpeta por bloque, numerada, en `src/bases/`: el `.md` con la teoría y los enunciados, y un `.ts` por problema resuelto.
 - `strict: true` innegociable.
 - Exports nombrados, nunca `export default`.
 - Cada `as` que se escriba debe llevar un comentario justificándolo. Idealmente, no hay ninguno.
