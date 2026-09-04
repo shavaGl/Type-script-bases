@@ -101,17 +101,3 @@ const validar = (f: Formulario): Inscripcion | string[] => {
 for (const e of enviados) {
   console.log(validar(e));
 }
-
-// Qué pasa con cada uno:
-//
-// 1) Ana Torres    → pasa. Todo convertible.
-// 2) Luis Pérez    → falla: "12años" no es un número completo.
-// 3) "  "          → falla: nombre en blanco. Sus números sí eran válidos.
-// 4) Sofía Ruiz    → falla con tres errores ("", "", ""). Con Number(v) directo
-//                    se habría colado con edad 0 y promedio 0.
-// 5) Diego Mora    → pasa con edad 0 y promedio 0, que es el criterio de
-//                    aceptación del ejercicio: 0 es dato, no ausencia de dato.
-//
-// Regla: convierte en un solo lugar, con una función que pueda decir "no se pudo"
-// (null), y compara ese resultado con === null. En cuanto usas truthiness sobre
-// el valor convertido, el 0 y el "" válidos se vuelven indistinguibles del error.
