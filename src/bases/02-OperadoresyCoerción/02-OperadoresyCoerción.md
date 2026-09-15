@@ -6,7 +6,7 @@
 | --- | --- |
 | **Archivo** | `src/bases/02-OperadoresyCoerción/02-OperadoresyCoerción.ts` |
 | **Prerrequisitos** | [Bloque 01 — Ejecución y tipos primitivos](../01-ejecucionyTiposPrimitivos/01-ejecucionyTiposPrimitivos.md) |
-| **Siguiente** | Bloque 03 — Control de flujo y colecciones |
+| **Siguiente** | [Bloque 03 — Control de flujo y colecciones](../03-ControlDeFlujoyColecciones/03-ControlDeFlujoyColecciones.md) |
 
 ---
 
@@ -548,4 +548,4 @@ const directorio = [
 
 ---
 
-[← Bloque 01 — Ejecución y tipos primitivos](../01-ejecucionyTiposPrimitivos/01-ejecucionyTiposPrimitivos.md) · [Volver al índice →](../../../README.md)
+[← Bloque 01 — Ejecución y tipos primitivos](../01-ejecucionyTiposPrimitivos/01-ejecucionyTiposPrimitivos.md) · [Volver al índice](../../../README.md) · [Bloque 03 — Control de flujo y colecciones →](../03-ControlDeFlujoyColecciones/03-ControlDeFlujoyColecciones.md)
